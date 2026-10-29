@@ -1,4 +1,5 @@
 Ad Soyad: Hüseyn Zeynallı
+
 Qrup: KOM24B
 
 Chapter 3 Practice Assignment
