@@ -1,0 +1,11 @@
+1. Ən çətin hesab etdiyiniz SQL sorğusu hansı oldu?
+Ən çətini əlavə suallardakı 3.27 və 3.35 oldu. 3.27-də ən azı üç fərqli kursu təkrar götürən tələbələri tapmaq lazım idi. İki dəfə qruplaşdırma tələb etdiyi üçün əvvəlcə qarışdırdım. Alt sorğuda tələbə və kurs ID-sinə görə GROUP BY edib HAVING COUNT(*) >= 2 yazdım, çöldə isə tələbə ID-sinə görə qruplaşdırıb fərqli kursların sayının 3 və ya daha çox olmasını yoxladım. 3.35-də ən çox tələbəsi olan bölməni tapmaq üçün WITH istifadə etmək bir az vaxt apardı.
+
+2. Hansı sorğu üçün alt sorğu (subquery) istifadə etdiniz?
+3.15(c)-də Brooklyn-dakı ən azı bir filialdan çox aktivi olan filialları tapmaq üçün SOME ilə alt sorğu yazdım. 3.11(d)-də departamentlərin maksimum maaşlarından ən kiçiyini seçmək üçün FROM hissəsində alt sorğu işlətdim. 3.31 və 3.32-də isə heç vaxt A qiyməti verməyən müəllimləri tapmaq üçün NOT IN daxilində alt sorğudan istifadə etdim.
+
+3. JOIN istifadə etdiyiniz bir nümunəni izah edin.
+3.33-də JOIN işlətdim. Saat 12:00 və ya sonra bitən ən azı bir bölməsi olan Comp. Sci. kurslarının ID və adını tapmaq lazım idi. Kursun adı course, bölmə məlumatı section, bitmə saatı isə time_slot cədvəlindədir. Ona görə əvvəlcə course və section-u course_id ilə, sonra time_slot-u time_slot_id ilə birləşdirdim. WHERE-də departamenti Comp. Sci. və end_hr >= 12 şərtini yazdım, təkrarlar olmasın deyə DISTINCT əlavə etdim.
+
+4. SQL sorğularını yazarkən qarşılaşdığınız bir problemi və onun həllini izah edin.
+Əsas problem 3.11(b) və 3.34-də oldu. 3.11(b)-də 2017-dən əvvəl kurs almayan tələbələri tapmaq lazım idi. Mən əvvəlcə takes cədvəlində birbaşa WHERE year >= 2017 yazmışdım. Sonra gördüm ki, bu halda 2016-da və 2018-də dərs götürən tələbə də siyahıya düşür, heç dərs götürməyənlər isə itir. Həll olaraq WHERE ID NOT IN yazıb alt sorğuda 2017-dən əvvəl dərs alanları çıxardım. 3.34-də isə hər bölmədəki tələbə sayını tapanda GROUP BY-a yalnız course_id və sec_id yazmışdım, nəticələr isə eyni bölmənin müxtəlif il və semestrləri üçün üst-üstə toplanırdı. year və semester sütunlarını da əlavə edəndən sonra düzəldi.
